@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:30:30 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/01 20:10:44 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/02 13:31:16 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,24 @@ void	set_dxdy(double *dx, double *dy, double w, double h)
 {
 	if (w == 0)
 	{
-		*dy = 1;
+		*dy = STEP;
 		*dx = 0;
 	}
 	else if (h == 0)
 	{
-		*dx = 1;
+		*dx = STEP;
 		*dy = 0;
 	}
 	else
 	{
 		if (w >= h)
 		{
-			*dx = 1;
+			*dx = STEP;
 			*dy = (h / w) * (*dx);
 		}
 		else
 		{
-			*dy = 1;
+			*dy = STEP;
 			*dx = (w / h) * (*dy);
 		}
 	}

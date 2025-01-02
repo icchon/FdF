@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:19:26 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/01 19:52:06 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/02 14:03:40 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ t_vector2	get_map_size(char *path)
 	while (line)
 	{
 		if (w != (int)ft_count_words(line, ' '))
-			return (close(fd), get_invalid_mapsize());
+			return (free(line), close(fd), get_invalid_mapsize());
 		h++;
 		free(line);
 		line = get_next_line(fd);
+		ft_printf(".");
 	}
 	close(fd);
 	return (ft_new_vec2(w, h));
@@ -53,7 +54,7 @@ int	is_valid_block(char *str)
 		return (free_strs(strs), 0);
 	if (!ft_isint(strs[0]))
 		return (free_strs(strs), 0);
-	return (1);
+	return (free_strs(strs), 1);
 }
 
 int	is_valid_line(int fd, int map_width)
@@ -72,8 +73,20 @@ int	is_valid_line(int fd, int map_width)
 	i = 0;
 	while (i < map_width)
 		if (!is_valid_block(strs[i++]))
-			return (free_strs(strs), free(line), 0);
+			return (free(line), free_strs(strs), 0);
 	return (free(line), free_strs(strs), 1);
+}
+
+static int	check_extension(char *s)
+{
+	size_t	len;
+
+	len = ft_strlen(s);
+	if (len <= 4)
+		return (0);
+	if (ft_strncmp(&s[len - 4], ".fdf", 4) != 0)
+		return (0);
+	return (1);
 }
 
 int	is_valid_map(char *path)
@@ -83,9 +96,13 @@ int	is_valid_map(char *path)
 	int			i;
 
 	i = 0;
-	map_size = get_map_size(path);
-	if (!is_invalid_mapsize(map_size))
+	if (!check_extension(path))
 		return (0);
+	map_size = get_map_size(path);
+	if (is_invalid_mapsize(map_size))
+	{
+		return (0);
+	}
 	fd = open(path, O_RDONLY);
 	while (i < map_size.y)
 	{
@@ -95,6 +112,7 @@ int	is_valid_map(char *path)
 			return (0);
 		}
 		i++;
+		ft_printf(".");
 	}
 	return (close(fd), 1);
 }

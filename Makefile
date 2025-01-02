@@ -12,7 +12,7 @@ MLX_ARCH := $(addsuffix libmlx.a, $(MLX_DIR))
 
 INC_FLAGS :=  -I$(INCDIR) -I$(LIBFT_DIR) -I$(MLX_DIR)
 
-FILES = cartesian.c command1.c coordinate_trans2.c exit.c map1.c obj.c command2.c draw.c init.c map2.c util.c color.c coordinate_trans1.c event.c isometoric.c map3.c window.c
+FILES = command1.c coordinate_trans2.c exit.c map1.c obj.c command2.c draw.c init.c map2.c util.c color.c coordinate_trans1.c event.c isometoric.c map3.c window.c
 
 SRCS := main.c $(addprefix src/, $(FILES))
 OBJS = $(SRCS:.c=.o)

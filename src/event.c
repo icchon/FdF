@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 17:15:57 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/01 19:47:49 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/02 13:33:28 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	on_key_pressed(int keycode, t_vars *vars)
 		command_shrink(vars);
 	else if (keycode == VK_2)
 		command_expand(vars);
+	else if (ft_ismatch(keycode, 3, VK_X, VK_Y, VK_Z))
+		command_rotate(vars, keycode);
 	return (0);
 }
 
@@ -68,7 +70,7 @@ int	on_mouse_moved(int x, int y, t_vars *vars)
 		vars->mouse_pos = ft_new_vec2(x, y);
 		shaft = ft_new_vec3(sub.x, sub.y, 0);
 		shaft = isometoric_rev_transform(shaft);
-		shaft = ft_cross_vec3(shaft, ft_new_vec3(1, 1, 1));
+		shaft = ft_cross_vec3(ft_new_vec3(1, 1, 1), shaft);
 		rotate_coordinate(vars->map, M_PI / 128, shaft);
 		fetch_coordinate(vars->map, ISO);
 		adjust_iso_position(vars->map);

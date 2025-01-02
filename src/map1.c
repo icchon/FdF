@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:30:20 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/01 19:58:06 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/02 14:11:25 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ int	set_objs(t_obj **objs, int fd, t_vector2 map_size)
 		j = 0;
 		while (j < map_size.x)
 		{
-			set_obj(&obj, strs[i], i, j);
+			set_obj(&obj, strs[j], i, j);
 			objs[i][j++] = obj;
 		}
-		free(line);
 		free_strs(strs);
+		free((ft_printf("."), line));
 	}
 	return (1);
 }
@@ -69,7 +69,7 @@ t_obj	**create_objs(t_vector2 map_size)
 	{
 		objs[i] = (t_obj *)malloc(sizeof(t_obj) * map_size.x);
 		if (objs[i++] == NULL)
-			return (free_objs(objs), NULL);
+			return (free_objs(objs, map_size.y), NULL);
 	}
 	return (objs);
 }
@@ -87,7 +87,16 @@ t_map	create_map(char *path)
 		return (get_invalid_map());
 	fd = open(path, O_RDONLY);
 	if (!set_objs(objs, fd, map_size))
-		return (free_objs(objs), close(fd), get_invalid_map());
+		return (free_objs(objs, map_size.y), close(fd), get_invalid_map());
 	map = new_map(objs, map_size);
 	return (map);
+}
+
+void	free_map(t_map map)
+{
+	t_obj	**objs;
+
+	objs = map.objs;
+	free_objs(objs, map.map_size.y);
+	return ;
 }

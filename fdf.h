@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:08:14 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/01 19:46:57 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/02 14:01:11 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 # define WINDOW_HEIGHT 1080
 # define WINDOW_WIDTH 1920
+# define STEP 1
 
 typedef struct s_obj
 {
@@ -74,6 +75,9 @@ typedef enum e_keycode
 	VK_7 = 55,
 	VK_8 = 56,
 	VK_9 = 57,
+	VK_X = 120,
+	VK_Y = 121,
+	VK_Z = 122,
 }				t_keycode;
 
 typedef enum e_coordinate
@@ -101,19 +105,18 @@ t_map			new_map(t_obj **objs, t_vector2 map_size);
 t_map			get_invalid_map(void);
 t_vector2		get_invalid_mapsize(void);
 int				is_invalid_mapsize(t_vector2 map_size);
-int				is_invalid_map(t_map map);
 t_obj			new_obj(t_vector3 iso, t_vector3 cur, int color);
 int				ft_count_words(char const *s, char c);
 void			free_strs(char **strs);
 
-void			close_window(t_vars *vars);
+int			close_window(t_vars *vars);
 int				on_key_pressed(int keycode, t_vars *vars);
 void			command_parallel(t_vars *vars, t_keycode code);
 void			command_upscale(t_vars *vars);
 void			command_downscale(t_vars *vars);
 void			scale_height(t_map map, double a);
 void			rotate_coordinate(t_map map, double phase, t_vector3 shaft);
-void			free_objs(t_obj **objs);
+void			free_objs(t_obj **objs, int n);
 
 int				on_mouse_moved(int x, int y, t_vars *vars);
 int				on_mouse_released(int button, int x, int y, t_vars *vars);
@@ -125,5 +128,12 @@ void			command_init(t_vars *vars);
 void			command_center(t_vars *vars);
 void			command_shrink(t_vars *vars);
 void			command_expand(t_vars *vars);
+int				is_valid_map(char *path);
+void			fresh_image(t_vars *vars);
+void			hook_functions(t_vars *vars);
+void			init(t_vars *vars);
+void			free_map(t_map map);
+void			terminate(t_vars *vars);
+void			command_rotate(t_vars *vars, t_keycode keycode);
 
 #endif

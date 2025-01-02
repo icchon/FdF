@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 17:21:56 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/01 17:22:09 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/02 13:13:37 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,5 @@ t_vector2	get_invalid_mapsize(void)
 
 int	is_invalid_mapsize(t_vector2 map_size)
 {
-	return (map_size.x < 0 || map_size.y < 0);
-}
-
-int	is_invalid_map(t_map map)
-{
-	return (is_invalid_mapsize(map.map_size));
+	return (map_size.x <= 0 || map_size.y <= 0);
 }
