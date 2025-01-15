@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:30:30 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/02 13:31:16 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/15 12:44:44 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,26 @@ void	draw_iso(t_vars *vars)
 
 void	set_dxdy(double *dx, double *dy, double w, double h)
 {
-	if (w == 0)
+	if (fabs(w) < STEP)
 	{
-		*dy = STEP;
+		*dy = (h / fabs(h)) * STEP;
 		*dx = 0;
 	}
-	else if (h == 0)
+	else if (fabs(h) < STEP)
 	{
-		*dx = STEP;
+		*dx = (w / fabs(w)) * STEP;
 		*dy = 0;
 	}
 	else
 	{
-		if (w >= h)
+		if (fabs(w) >= fabs(h))
 		{
-			*dx = STEP;
+			*dx = (w / fabs(w)) * STEP;
 			*dy = (h / w) * (*dx);
 		}
 		else
 		{
-			*dy = STEP;
+			*dy = (h / fabs(h)) * STEP;
 			*dx = (w / h) * (*dy);
 		}
 	}
@@ -69,7 +69,8 @@ void	draw_line(t_obj start, t_obj end, t_vars *vars)
 	double	dx;
 	double	dy;
 
-	if (end.iso.x - start.iso.x == 0 && end.iso.y - start.iso.y == 0)
+	if ((fabs(end.iso.x - start.iso.x) < STEP) && (fabs(end.iso.y
+				- start.iso.y) < STEP))
 		return ;
 	set_dxdy(&dx, &dy, end.iso.x - start.iso.x, end.iso.y - start.iso.y);
 	x = start.iso.x;
