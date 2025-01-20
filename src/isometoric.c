@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:30:59 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/01 19:01:38 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/21 08:52:09 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ t_vector3	isometoric_transform(t_vector3 pos)
 	t_vector3		after;
 	const double	phase = M_PI / 6;
 
-	after.x = pos.x * cos(phase) - pos.y * cos(phase);
-	after.y = pos.x * sin(phase) + pos.y * sin(phase) - pos.z;
+	after.x = -1 * (pos.x * cos(phase) - pos.y * cos(phase));
+	after.y = (pos.x * sin(phase) + pos.y * sin(phase) - pos.z);
 	after.z = pos.z;
 	return (after);
 }
