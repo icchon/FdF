@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   map1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaaxobe <kaaxobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/29 19:30:20 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/02 14:11:25 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/12/29 19:30:20 by kaaxobe           #+#    #+#             */
+/*   Updated: 2025/01/02 14:11:25 by kaaxobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	set_obj(t_obj *obj, char *block, int i, int j)
+int	set_obj(t_obj *obj, char *block, t_vector2 xy, t_phases phases)
 {
 	int			color;
 	int			nbr;
-	t_vector3	cur;
+	t_vector3	car;
 
 	color = 0XFFFFFF;
 	set_point_info(block, &nbr, &color);
-	cur = ft_new_vec3(i, j, nbr);
-	obj->cur = cur;
-	obj->iso = isometoric_transform(cur);
+	car = ft_new_vec3(xy.x, xy.y, nbr);
+	obj->car = car;
+	obj->axo = axometoric_transform(car, phases);
 	obj->color = color;
 	return (1);
 }
 
-int	set_objs(t_obj **objs, int fd, t_vector2 map_size)
+int	set_objs(t_obj **objs, int fd, t_vector2 map_size, t_phases phases)
 {
 	int		i;
 	int		j;
@@ -47,7 +47,7 @@ int	set_objs(t_obj **objs, int fd, t_vector2 map_size)
 		j = 0;
 		while (j < map_size.x)
 		{
-			set_obj(&obj, strs[j], i, j);
+			set_obj(&obj, strs[j], (t_vector2){i, j}, phases);
 			objs[i][j++] = obj;
 		}
 		free_strs(strs);
@@ -86,9 +86,9 @@ t_map	create_map(char *path)
 	if (objs == NULL)
 		return (get_invalid_map());
 	fd = open(path, O_RDONLY);
-	if (!set_objs(objs, fd, map_size))
+	if (!set_objs(objs, fd, map_size, (t_phases){M_PI / 6, M_PI / 6, M_PI / 2}))
 		return (free_objs(objs, map_size.y), close(fd), get_invalid_map());
-	map = new_map(objs, map_size);
+	map = new_map(objs, map_size, (t_phases){M_PI / 6, M_PI / 6, M_PI / 2});
 	return (map);
 }
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaaxobe <kaaxobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/29 19:30:30 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/15 12:44:44 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/12/29 19:30:30 by kaaxobe           #+#    #+#             */
+/*   Updated: 2025/01/15 12:44:44 by kaaxobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_iso(t_vars *vars)
+void	draw_axo(t_vars *vars)
 {
 	int		i;
 	int		j;
@@ -62,6 +62,35 @@ void	set_dxdy(double *dx, double *dy, double w, double h)
 	}
 }
 
+static int	can_skip(t_obj start, t_obj end, double dx, double dy)
+{
+	int		cnt;
+	double	x;
+	double	y;
+
+	x = start.axo.x;
+	y = start.axo.y;
+	cnt = 0;
+	if ((fabs(end.axo.x - start.axo.x) < STEP) && (fabs(end.axo.y
+				- start.axo.y) < STEP))
+		return (1);
+	if ((start.axo.x < 0 && end.axo.x < 0) || (start.axo.y < 0
+			&& end.axo.y < 0))
+		return (1);
+	if ((start.axo.x >= WINDOW_WIDTH && end.axo.x >= WINDOW_WIDTH)
+		|| (start.axo.y >= WINDOW_HEIGHT && end.axo.y >= WINDOW_HEIGHT))
+		return (1);
+	while (!(x > 0 && x < WINDOW_WIDTH) || !(y > 0 && y < WINDOW_HEIGHT))
+	{
+		x += dx;
+		y += dy;
+		if (++cnt > fmaxf(fabs(end.axo.x - start.axo.x), fabs(end.axo.y
+					- start.axo.y)))
+			return (1);
+	}
+	return (0);
+}
+
 void	draw_line(t_obj start, t_obj end, t_vars *vars)
 {
 	double	x;
@@ -69,25 +98,26 @@ void	draw_line(t_obj start, t_obj end, t_vars *vars)
 	double	dx;
 	double	dy;
 
-	if ((fabs(end.iso.x - start.iso.x) < STEP) && (fabs(end.iso.y
-				- start.iso.y) < STEP))
+	set_dxdy(&dx, &dy, end.axo.x - start.axo.x, end.axo.y - start.axo.y);
+	if (can_skip(start, end, dx, dy))
 		return ;
-	set_dxdy(&dx, &dy, end.iso.x - start.iso.x, end.iso.y - start.iso.y);
-	x = start.iso.x;
-	y = start.iso.y;
-	while (((start.iso.x <= x && x <= end.iso.x) || (end.iso.x <= x
-				&& x <= start.iso.x)) && ((start.iso.y <= y && y <= end.iso.y)
-			|| (end.iso.y <= y && y <= start.iso.y)))
+	x = start.axo.x;
+	y = start.axo.y;
+	while (!(x > 0 && x < WINDOW_WIDTH) || !(y > 0 && y < WINDOW_HEIGHT))
 	{
 		x += dx;
 		y += dy;
-		if (x < 0 || x >= WINDOW_WIDTH)
-			break ;
-		if (y < 0 || y >= WINDOW_HEIGHT)
+	}
+	while (((start.axo.x <= x && x <= end.axo.x) || (end.axo.x <= x
+				&& x <= start.axo.x)) && ((start.axo.y <= y && y <= end.axo.y)
+			|| (end.axo.y <= y && y <= start.axo.y)))
+	{
+		x += dx;
+		y += dy;
+		if ((x < 0 || x >= WINDOW_WIDTH) || (y < 0 || y >= WINDOW_HEIGHT))
 			break ;
 		put_pixel(vars, x, y, start.color);
 	}
-	return ;
 }
 
 void	put_pixel(t_vars *vars, int x, int y, int color)

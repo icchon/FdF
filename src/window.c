@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaaxobe <kaaxobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/29 19:35:44 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/02 14:01:14 by kaisobe          ###   ########.fr       */
+/*   Created: 2024/12/29 19:35:44 by kaaxobe           #+#    #+#             */
+/*   Updated: 2025/01/02 14:01:14 by kaaxobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	fresh_image(t_vars *vars)
 void	hook_functions(t_vars *vars)
 {
 	mlx_hook(vars->win, KeyPress, KeyPressMask, on_key_pressed, vars);
+	mlx_hook(vars->win, KeyRelease, KeyReleaseMask, on_key_released, vars);
 	mlx_hook(vars->win, ButtonPress, ButtonPressMask, on_mouse_pressed, vars);
 	mlx_hook(vars->win, ButtonRelease, ButtonReleaseMask, on_mouse_released,
 		vars);

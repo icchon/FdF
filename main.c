@@ -17,9 +17,7 @@ int	main(int argc, char *argv[])
 	t_vars	vars;
 
 	if (argc != 2)
-	{
 		return (0);
-	}
 	vars.map_path = argv[1];
 	ft_printf("start validating map\n");
 	if (!is_valid_map(vars.map_path))
@@ -29,10 +27,13 @@ int	main(int argc, char *argv[])
 	}
 	ft_printf("\nend validating map\n");
 	vars.on_mouse = 0;
+	vars.on_shift = 0;
+	vars.can_change_height = 1;
 	ft_printf("\nstart reading map\n");
 	vars.map = create_map(vars.map_path);
 	ft_printf("\nend reading map\n");
 	adjust_map(vars.map);
+	ft_printf(CONTROL_MANUAL);
 	init(&vars);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   coordinate_trans2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaaxobe <kaaxobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/01 19:04:43 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/02 12:29:39 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/01/01 19:04:43 by kaaxobe           #+#    #+#             */
+/*   Updated: 2025/01/02 12:29:39 by kaaxobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	translate(t_map map, t_vector3 offset, t_coordinate type)
 		j = 0;
 		while (j < map.map_size.x)
 		{
-			if (type == ISO)
-				map.objs[i][j].iso = ft_add_vec3(map.objs[i][j].iso, offset);
+			if (type == AXO)
+				map.objs[i][j].axo = ft_add_vec3(map.objs[i][j].axo, offset);
 			else
-				map.objs[i][j].cur = ft_add_vec3(map.objs[i][j].cur, offset);
+				map.objs[i][j].car = ft_add_vec3(map.objs[i][j].car, offset);
 			j++;
 		}
 		i++;
@@ -47,17 +47,46 @@ void	upscale(t_map map, double a, t_coordinate type)
 		j = 0;
 		while (j < map.map_size.x)
 		{
-			if (type == ISO)
-				map.objs[i][j].iso = ft_mul_vec3(map.objs[i][j].iso, v);
+			if (type == AXO)
+				map.objs[i][j].axo = ft_mul_vec3(map.objs[i][j].axo, v);
 			else
-				map.objs[i][j].cur = ft_mul_vec3(map.objs[i][j].cur, v);
+				map.objs[i][j].car = ft_mul_vec3(map.objs[i][j].car, v);
 			j++;
 		}
 		i++;
 	}
 	bias = calc_center_window();
 	bias = ft_mul_vec3(bias, ft_new_vec3(a - 1, a - 1, a - 1));
-	translate(map, ft_mul_vec3(ft_new_vec3(-1, -1, -1), bias), ISO);
+	translate(map, ft_mul_vec3(ft_new_vec3(-1, -1, -1), bias), AXO);
+}
+
+t_vector3	carmax(t_map map)
+{
+	int			h;
+	int			w;
+	t_vector3	ans;
+	int			i;
+	int			j;
+
+	h = map.map_size.y;
+	w = map.map_size.x;
+	ans = ft_new_vec3((double)INT_MIN, (double)INT_MIN, (double)INT_MIN);
+	i = -1;
+	while (++i < h)
+	{
+		j = 0;
+		while (j < w)
+		{
+			if (map.objs[i][j].car.x > ans.x)
+				ans.x = map.objs[i][j].car.x;
+			if (map.objs[i][j].car.y > ans.y)
+				ans.y = map.objs[i][j].car.y;
+			if (map.objs[i][j].car.z > ans.z)
+				ans.z = map.objs[i][j].car.z;
+			j++;
+		}
+	}
+	return (ans);
 }
 
 void	scale_height(t_map map, double a)
@@ -68,13 +97,16 @@ void	scale_height(t_map map, double a)
 
 	v = ft_new_vec3(1, 1, a);
 	i = 0;
+	if (fabs(carmax(map).z) > INT_MAX)
+		return ;
 	while (i < map.map_size.y)
 	{
 		j = 0;
 		while (j < map.map_size.x)
 		{
-			map.objs[i][j].cur = ft_mul_vec3(map.objs[i][j].cur, v);
-			map.objs[i][j].iso = isometoric_transform(map.objs[i][j].cur);
+			map.objs[i][j].car = ft_mul_vec3(map.objs[i][j].car, v);
+			map.objs[i][j].axo = axometoric_transform(map.objs[i][j].car,
+					map.phases);
 			j++;
 		}
 		i++;

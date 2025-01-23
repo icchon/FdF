@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   map2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaaxobe <kaaxobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/01 17:21:56 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/02 13:13:37 by kaisobe          ###   ########.fr       */
+/*   Created: 2025/01/01 17:21:56 by kaaxobe           #+#    #+#             */
+/*   Updated: 2025/01/02 13:13:37 by kaaxobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_map	new_map(t_obj **objs, t_vector2 map_size)
+t_map	new_map(t_obj **objs, t_vector2 map_size, t_phases phases)
 {
 	t_map	map;
 
 	map.objs = objs;
 	map.map_size = map_size;
+	map.phases = phases;
 	return (map);
 }
 
