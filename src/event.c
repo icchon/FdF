@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaaxobe <kaaxobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 17:15:57 by kaaxobe           #+#    #+#             */
-/*   Updated: 2025/01/02 13:33:28 by kaaxobe          ###   ########.fr       */
+/*   Updated: 2025/01/24 10:22:38 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	on_key_pressed(int keycode, t_vars *vars)
 		close_window(vars);
 	if (ft_ismatch(keycode, 4, VK_LEFT, VK_UP, VK_RIGHT, VK_DOWN))
 		command_parallel(vars, keycode);
-	if (keycode == VK_PLUS)
+	if (keycode == VK_PLUS && !vars->on_shift)
 		command_upscale(vars);
 	if (keycode == VK_MINUS || (keycode == VK_PLUS && vars->on_shift))
 		command_downscale(vars);
@@ -34,14 +34,14 @@ int	on_key_pressed(int keycode, t_vars *vars)
 		command_rotate(vars, keycode);
 	if (ft_ismatch(keycode, 3, VK_A, VK_B, VK_C))
 		command_change_phases(vars, keycode);
-	if (keycode == VK_SHIFT)
+	if (keycode == VK_SHIFT1 || keycode == VK_SHIFT2)
 		vars->on_shift = 1;
 	return (0);
 }
 
 int	on_key_released(int keycode, t_vars *vars)
 {
-	if (keycode == VK_SHIFT)
+	if (keycode == VK_SHIFT1 || keycode == VK_SHIFT2)
 		vars->on_shift = 0;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:08:14 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/15 10:50:50 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/24 10:21:44 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ typedef enum e_keycode
 	VK_SPACE = ' ',
 	VK_PLUS = 61,
 	VK_MINUS = '-',
-	VK_SHIFT = 65505,
+	VK_SHIFT1 = 65505,
+	VK_SHIFT2 = 65506,
 	VK_0 = '0',
 	VK_1 = '1',
 	VK_2 = '2',

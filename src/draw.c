@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaaxobe <kaaxobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 19:30:30 by kaaxobe           #+#    #+#             */
-/*   Updated: 2025/01/15 12:44:44 by kaaxobe          ###   ########.fr       */
+/*   Updated: 2025/01/24 10:18:56 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	can_skip(t_obj start, t_obj end, double dx, double dy)
 	{
 		x += dx;
 		y += dy;
-		if (++cnt > fmaxf(fabs(end.axo.x - start.axo.x), fabs(end.axo.y
+		if (cnt++ > fmaxf(fabs(end.axo.x - start.axo.x), fabs(end.axo.y
 					- start.axo.y)))
 			return (1);
 	}
