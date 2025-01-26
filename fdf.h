@@ -18,7 +18,6 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <fcntl.h>
-# include <float.h>
 # include <limits.h>
 # include <math.h>
 # include <stdio.h>
@@ -27,23 +26,23 @@
 # define WINDOW_HEIGHT 540
 # define WINDOW_WIDTH 960
 # define STEP 1
-# define CONTROL_MANUAL                                \
-	"\n_____________________________________\n"       \
-	"|                                   |\n"         \
-	"|           Key Controls            |\n"         \
-	"|===================================|\n"         \
-	"|  + : Zoom in                      |\n"         \
-	"|  - : Zoom out                     |\n"         \
-	"|  →,←,↑,↓ : Move view              |\n" \
-	"|  Space : Reset view               |\n"         \
-	"|  0-9 : Center object              |\n"         \
-	"|  h : Adjust height                |\n"         \
-	"|  x/y/z : Rotate on axis           |\n"         \
-	"|  Mouse : Free rotation            |\n"         \
-	"|  a/b   : axometorical angles      |\n"         \
-	"|-----------------------------------|\n"         \
-	"|  Hold Shift for reverse controls  |\n"         \
-	"|___________________________________|\n"
+# define CONTROL_MANUAL "\
+\n_____________________________________\n\
+|                                   |\n\
+|           Key Controls            |\n\
+|===================================|\n\
+|  + : Zoom in                      |\n\
+|  - : Zoom out                     |\n\
+|  →,←,↑,↓ : Move view              |\n\
+|  Space : Reset view               |\n\
+|  0-9 : Center object              |\n\
+|  h : Adjust height                |\n\
+|  x/y/z : Rotate on axis           |\n\
+|  Mouse : Free rotation            |\n\
+|  a/b   : axometorical angles      |\n\
+|-----------------------------------|\n\
+|  Hold Shift for reverse controls  |\n\
+|___________________________________|\n"
 
 typedef struct s_obj
 {
