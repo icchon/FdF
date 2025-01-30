@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 09:07:46 by kaisobe           #+#    #+#             */
-/*   Updated: 2025/01/02 14:05:04 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/31 07:40:10 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@ int	main(int argc, char *argv[])
 		ft_printf("\ninvalid map\n");
 		return (0);
 	}
-	ft_printf("\nend validating map\n");
 	vars.on_mouse = 0;
 	vars.on_shift = 0;
 	vars.can_change_height = 1;
 	ft_printf("\nstart reading map\n");
 	vars.map = create_map(vars.map_path);
-	ft_printf("\nend reading map\n");
 	adjust_map(vars.map);
 	ft_printf(CONTROL_MANUAL);
 	init(&vars);

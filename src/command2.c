@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaaxobe <kaaxobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 17:17:26 by kaaxobe           #+#    #+#             */
-/*   Updated: 2025/01/02 12:41:13 by kaaxobe          ###   ########.fr       */
+/*   Updated: 2025/01/31 07:29:32 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	command_shrink(t_vars *vars)
 	const double	scalar = 0.95;
 
 	if (!vars->can_change_height)
+	{
 		ft_printf("cannnot change height.Press Space\n");
+		return ;
+	}
 	scale_height(vars->map, scalar);
 	adjust_map(vars->map);
 	mlx_destroy_image(vars->mlx, vars->img);
@@ -32,7 +35,10 @@ void	command_expand(t_vars *vars)
 	const double	scalar = 1.05;
 
 	if (!vars->can_change_height)
+	{
 		ft_printf("cannnot change height.Press Space\n");
+		return ;
+	}
 	scale_height(vars->map, scalar);
 	adjust_map(vars->map);
 	mlx_destroy_image(vars->mlx, vars->img);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   coordinate_trans2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kaaxobe <kaaxobe@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:04:43 by kaaxobe           #+#    #+#             */
-/*   Updated: 2025/01/02 12:29:39 by kaaxobe          ###   ########.fr       */
+/*   Updated: 2025/01/31 07:44:12 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,25 @@ void	upscale(t_map map, double a, t_coordinate type)
 	int			j;
 	t_vector3	v;
 	t_vector3	bias;
+	double		norm;
 
 	v = ft_new_vec3(a, a, a);
-	i = 0;
-	while (i < map.map_size.y)
+	i = -1;
+	norm = ft_norm_vec3(carmax(map));
+	if (norm > INT_MAX || norm < 10)
+		return ;
+	while (++i < map.map_size.y)
 	{
-		j = 0;
-		while (j < map.map_size.x)
+		j = -1;
+		while (++j < map.map_size.x)
 		{
 			if (type == AXO)
 				map.objs[i][j].axo = ft_mul_vec3(map.objs[i][j].axo, v);
 			else
 				map.objs[i][j].car = ft_mul_vec3(map.objs[i][j].car, v);
-			j++;
 		}
-		i++;
 	}
-	bias = calc_center_window();
-	bias = ft_mul_vec3(bias, ft_new_vec3(a - 1, a - 1, a - 1));
+	bias = ft_mul_vec3(calc_center_window(), ft_new_vec3(a - 1, a - 1, a - 1));
 	translate(map, ft_mul_vec3(ft_new_vec3(-1, -1, -1), bias), AXO);
 }
 
