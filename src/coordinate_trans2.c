@@ -6,7 +6,7 @@
 /*   By: kaisobe <kaisobe@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:04:43 by kaaxobe           #+#    #+#             */
-/*   Updated: 2025/01/31 07:44:12 by kaisobe          ###   ########.fr       */
+/*   Updated: 2025/01/31 14:11:16 by kaisobe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	upscale(t_map map, double a, t_coordinate type)
 	v = ft_new_vec3(a, a, a);
 	i = -1;
 	norm = ft_norm_vec3(carmax(map));
-	if (norm > INT_MAX || norm < 10)
+	if (norm > INT_MAX || norm < 1)
 		return ;
 	while (++i < map.map_size.y)
 	{
